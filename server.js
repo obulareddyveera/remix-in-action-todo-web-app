@@ -3,6 +3,7 @@ import { installGlobals } from "@remix-run/node";
 import compression from "compression";
 import express from "express";
 import morgan from "morgan";
+import TodoApi from "./apis/todo/api.js"
 
 installGlobals();
 
@@ -44,7 +45,7 @@ if (viteDevServer) {
 app.use(express.static("build/client", { maxAge: "1h" }));
 
 app.use(morgan("tiny"));
-
+app.use("/api/todo", TodoApi);
 // handle SSR requests
 app.all("*", remixHandler);
 
