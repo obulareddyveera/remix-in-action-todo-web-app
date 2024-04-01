@@ -1,5 +1,5 @@
 import { ActionFunctionArgs } from "@remix-run/node";
-import { Link, json, redirect, useFetcher } from "@remix-run/react";
+import { json, redirect, useFetcher } from "@remix-run/react";
 import { FormEvent, useCallback } from "react";
 import TodoFormComponent from "~/components/todo.form";
 import todoAPIServiceLeaf, { UpdateDataParam } from "~/api/todo.server";
@@ -31,18 +31,10 @@ export default function AddNewTodo() {
       <article>
         <div className="card w-full bg-base-100 shadow-xl m-4">
           <div className="card-body h-[75vh]">
-            <h2 className="card-title text-[#192F01]">
-              Add a New TODO, THINGS ...!
-            </h2>
-            <div className="flex justify-end border-b-2 p-2">
-              <div className="card-actions justify-end">
-                <Link to="/todos">
-                  <button className="btn">Cancel</button>
-                </Link>
-                <button className="btn bg-[#E0475B] hover:border-none hover:bg-[#E1689B] text-white">
-                  Save
-                </button>
-              </div>
+            <div className="flex justify-center p-2">
+              <h2 className="card-title text-[#192F01] border-b-2">
+                Add a New TODO, THINGS ...!
+              </h2>
             </div>
             <div className="overflow-x-auto">
               <fetcher.Form method="post" onSubmit={handler}>

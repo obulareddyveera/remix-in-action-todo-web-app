@@ -68,18 +68,16 @@ const TodoFormComponent = (props: ToDoFormProps) => {
           </div>
         </div>
 
-        <div className="flex justify-end border-b-2 p-2">
-          <div className="card-actions justify-end">
-            <Link to="/todos">
-              <button className="btn">Cancel</button>
-            </Link>
-            <button
-              type="submit"
-              className="btn bg-[#E0475B] hover:border-none hover:bg-[#E1689B] text-white"
-            >
-              Save
-            </button>
-          </div>
+        <div className="w-full flex justify-end">
+          <Link to="/todos">
+            <button className="btn btn-md m-2">Cancel</button>
+          </Link>
+          <button
+            type="submit"
+            className="btn btn-md bg-[#E0475B] hover:border-none hover:bg-[#E1689B] text-white m-2"
+          >
+            Save
+          </button>
         </div>
       </div>
     </>
