@@ -1,12 +1,9 @@
 import { ActionFunctionArgs, json } from "@remix-run/node";
 import { Link, redirect, useFetcher, useLoaderData } from "@remix-run/react";
 import { FormEvent, ReactNode, useCallback } from "react";
-import {
+import todoAPIServiceLeaf, {
   ToDoItem,
   UpdateDataParam,
-  deleteRecord,
-  getData,
-  updateStatus,
 } from "~/api/todo.server";
 
 interface StatusBadgeType {
@@ -17,7 +14,7 @@ interface StatusBadgeType {
 
 export const loader = async () => {
   try {
-    const todos = await getData();
+    const todos = await todoAPIServiceLeaf.getAllTodoItems();
     return json({ todos });
   } catch (error) {
     return redirect("/error");
@@ -32,10 +29,10 @@ export async function action({ request }: ActionFunctionArgs) {
   });
   switch (data["intent"]) {
     case "status":
-      await updateStatus(payload);
+      await todoAPIServiceLeaf.updateTodoStatus(payload);
       break;
     case "delete":
-      await deleteRecord(payload);
+      await todoAPIServiceLeaf.deleteTodoItem(payload);
       break;
     default:
       throw new Response("Bad Request", { status: 400 });
@@ -63,12 +60,21 @@ export default function Component() {
               MY TODO, THINGS FOUND ...!
             </h2>
             <div className="flex justify-end border-b-2 p-2">
-              <div className="card-actions justify-end">
+              <div className="card-actions w-full">
+                <div className=" flex justify-between w-full">
+                <div>
+                <Link to="/">
+                  <button className="btn btn-md">Cancel</button>
+                </Link>
+                </div>
+                <div>
                 <Link to="new">
-                  <button className="btn bg-[#E0475B] hover:border-none hover:bg-[#E1689B] text-white">
+                  <button className="btn btn-md bg-[#E0475B] hover:border-none hover:bg-[#E1689B] text-white">
                     Add NEW TODO!
                   </button>
                 </Link>
+                </div>
+                </div>
               </div>
             </div>
             <div className="overflow-x-auto">

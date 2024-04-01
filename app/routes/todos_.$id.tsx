@@ -8,15 +8,13 @@ import {
 } from "@remix-run/react";
 import { FormEvent, useCallback } from "react";
 import TodoFormComponent from "~/components/todo.form";
-import {
+import todoAPIServiceLeaf, {
   ToDoItem,
   UpdateDataParam,
-  getTodoOfId,
-  updateRecord,
 } from "~/api/todo.server";
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
-  const todo = await getTodoOfId(params.id as string);
+  const todo = await todoAPIServiceLeaf.getTodoItem(params.id as string);
   return json({ todo });
 };
 export async function action({ request }: ActionFunctionArgs) {
@@ -26,7 +24,7 @@ export async function action({ request }: ActionFunctionArgs) {
   Object.keys(data).forEach((item) => {
     payload[item] = data[item] as string;
   });
-  await updateRecord(payload);
+  await todoAPIServiceLeaf.updateTodoItem(payload);
   return redirect("/todos");
 }
 

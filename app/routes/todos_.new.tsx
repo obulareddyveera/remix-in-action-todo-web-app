@@ -2,7 +2,7 @@ import { ActionFunctionArgs } from "@remix-run/node";
 import { Link, json, redirect, useFetcher } from "@remix-run/react";
 import { FormEvent, useCallback } from "react";
 import TodoFormComponent from "~/components/todo.form";
-import { UpdateDataParam, addRecord } from "~/api/todo.server";
+import todoAPIServiceLeaf, { UpdateDataParam } from "~/api/todo.server";
 
 export const loader = async () => {
   return json({ todo: {} });
@@ -14,7 +14,7 @@ export async function action({ request }: ActionFunctionArgs) {
   Object.keys(data).forEach((item) => {
     payload[item] = data[item] as string;
   });
-  await addRecord(payload);
+  await todoAPIServiceLeaf.addTodoItem(payload);
   return redirect("/todos");
 }
 
